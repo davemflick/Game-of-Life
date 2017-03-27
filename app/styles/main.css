@@ -2,6 +2,35 @@
   box-sizing: border-box; }
 
 body {
-  background-color: #ddd; }
+  background-color: #ddd;
+  text-align: center; }
+
+table {
+  position: relative;
+  left: .5vh;
+  top: .5vh;
+  margin: 50px auto;
+  padding: 0; }
+  table tbody tr {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0; }
+    table tbody tr td {
+      padding: 0; }
+
+.block {
+  width: 10px;
+  height: 10px;
+  border: 1px solid black; }
+
+.dead {
+  background-color: white; }
+
+.alive {
+  background-color: red; }
+
+.blue {
+  background-color: blue; }
 
 /*# sourceMappingURL=Main.css.map */
