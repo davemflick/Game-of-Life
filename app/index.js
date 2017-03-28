@@ -1,22 +1,7 @@
 import React from 'react';
 import ReactDOM, { react } from 'react-dom';
-
-
-
-class GridTable extends React.Component{
-
-
-
-	render() {
-		return(
-			<tbody>
-				{this.props.createRows}
-			</tbody>
-		)
-	}
-}
-
-
+import GridTable from './components/GridTable';
+import Header from './components/Header';
 
 
 class App extends React.Component{
@@ -35,22 +20,37 @@ class App extends React.Component{
 
 	componentDidMount(){
 		this.populateRandom();
-		
+		this.onStartRun();
 	}
+
+
 
 	onStartRun () {
 		if(!this.state.running){
 		this.interval = setInterval(this.onNextGen.bind(this), 100)
 		this.state.running = true;
 		} else {
-			this.onClear();
+			this.onClearTime();
 			this.state.running = false;
 		}
 		this.setState(this.state)
 	}
 
-	onClear () {
+	onClearTime () {
 		clearInterval(this.interval);
+	}
+
+	onClearBoard () {
+		if(this.state.running === true){
+		this.onStartRun();
+		} 
+		this.emptyBoard();
+		this.setState({
+			gridArr: [],
+			nextGen: [],
+			running: false,
+			counter: 0,
+		})
 	}
 
 	createBlock (rowNum) {
@@ -80,9 +80,29 @@ class App extends React.Component{
 	}
 
 	randomNumber () {
-		var num = Math.round(Math.random() * 10);
+		var num = Math.round(Math.random() * 7);
 		if(num !== 1){num = 0;}
 		return num;
+	}
+
+	emptyBoard(){
+		const grid = this.state.gridArr
+		if(grid.length > 1500){
+			grid.splice(1500)
+		}
+		for(var x=0; x<grid.length; x++){
+			this.state.gridArr[x][1] = 0;
+		}
+		this.setState(this.state);
+			for(var i=0; i<grid.length; i++){
+			if(grid[i][1] == 1){
+			this.refs['b' + (i+1)].className = 'block alive';
+			} else {
+				this.refs['b' + (i+1)].className = 'block dead';
+			}
+
+		}
+
 	}
 
 	populateRandom(){
@@ -107,6 +127,7 @@ class App extends React.Component{
 
 	onPopulateRandom ()	{
 		this.populateRandom();
+		this.setState({counter: 0})
 	}
 
 	handleClick(e) {
@@ -309,16 +330,19 @@ class App extends React.Component{
 		})
 	}
 
+
 	render() {
 		return(
 			<div>
-				<h3>{`Generations: ${this.state.counter}`}</h3>
+				<Header />
+				<h3 className='counter'>{`Generations: ${this.state.counter}`}</h3>
 				<table  onClick={this.handleClick.bind(this)}>
 					<GridTable createRows={this.createRows()} />
 				</table>
 				<button onClick={this.onPopulateRandom.bind(this)}> Random Population </button>
-				<button onClick={this.onNextGen.bind(this)}> Next Gen </button>
+				<button onClick={this.onNextGen.bind(this)}> Next Generation </button>
 				<button onClick={this.onStartRun.bind(this)}> Start/Stop </button>
+				<button onClick={this.onClearBoard.bind(this)}> Clear All </button>
 			</div>
 		)
 	}//End of render
