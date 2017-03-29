@@ -27,7 +27,7 @@ class App extends React.Component{
 
 	onStartRun () {
 		if(!this.state.running){
-		this.interval = setInterval(this.onNextGen.bind(this), 100)
+		this.interval = setInterval(this.onNextGen.bind(this), 200)
 		this.state.running = true;
 		} else {
 			this.onClearTime();
@@ -160,144 +160,103 @@ class App extends React.Component{
 			let c1= currentGen[i+49];
 			let c2= currentGen[i+50];
 			let c3= currentGen[i+51];
-			//For First grid Cell
-			if(i === 0) {
-				let alive = 0;
-				let dead = 0;
-				let neighbors = [b3, c2, c3];
-				let thisCell = [];
-				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
-
+			let checking = function () {
 				if(currentGen[i][1] === 0 && alive === 3 ){thisCell = [i+1, 1]}
 				else if(currentGen[i][1] === 0 && alive !== 3 ){thisCell = [i+1, 0]}
 				else if(currentGen[i][1] === 1 && alive > 3) {thisCell = [i+1, 0]}
 				else if(currentGen[i][1] === 1 && alive >1 && alive < 4) {thisCell = [i+1, 1]} 
 				else if(currentGen[i][1] === 1 && alive < 2) {thisCell = [i+1, 0]};
+				return thisCell;
+			};
+			const findNeighbors = function (neighbors) {
+				var alive = 0;
+				var dead = 0;
+				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
+				return alive;
+			}
+
+			//For First grid Cell
+			if(i === 0) {
+				let neighbors = [b3, c2, c3];
+				var alive = findNeighbors(neighbors);
+				var thisCell = [];
+				checking();
 				nextGen.push(thisCell);
 			}
 			//For Cells 2-49
 			if(i > 0 && i < 49) {
-				let alive = 0;
-				let dead = 0;
 				let neighbors = [b1, b3, c1, c2, c3];
-				let thisCell = [];
-				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
-				if(currentGen[i][1] === 0 && alive === 3 ){thisCell = [i+1, 1]}
-					else if(currentGen[i][1] === 0 && alive !== 3 ){thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive > 3) {thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive >1 && alive < 4) {thisCell = [i+1, 1]} 
-				else if(currentGen[i][1] === 1 && alive < 2) {thisCell = [i+1, 0]};
+				var alive = findNeighbors(neighbors);
+				var thisCell = [];
+				checking();
 				nextGen.push(thisCell);
 				 
 			}
 			//For Cell 50
 			if(i === 49) {
-				let alive = 0;
-				let dead = 0;
 				let neighbors = [b1, c1, c2];
-				let thisCell = [];
-				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
-				if(currentGen[i][1] === 0 && alive === 3 ){thisCell = [i+1, 1]}
-					else if(currentGen[i][1] === 0 && alive !== 3 ){thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive > 3) {thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive >1 && alive < 4) {thisCell = [i+1, 1]} 
-				else if(currentGen[i][1] === 1 && alive < 2) {thisCell = [i+1, 0]};
+				var alive = findNeighbors(neighbors);
+				var thisCell = [];
+				checking();
 				nextGen.push(thisCell);
 				 
 			}
 			//For Cells Along column 1
 			if(i > 49 && i < 1401 && i%50 === 0) {
-				let alive = 0;
-				let dead = 0;
 				let neighbors = [a2, a3,b3, c2, c3];
-				let thisCell = [];
-				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
-				if(currentGen[i][1] === 0 && alive === 3 ){thisCell = [i+1, 1]}
-					else if(currentGen[i][1] === 0 && alive !== 3 ){thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive > 3) {thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive >1 && alive < 4) {thisCell = [i+1, 1]} 
-				else if(currentGen[i][1] === 1 && alive < 2) {thisCell = [i+1, 0]};
+				var alive = findNeighbors(neighbors);
+				var thisCell = [];
+				checking();
 				nextGen.push(thisCell);
 				 
 			}
 
 			//For Cells Along column 50
 			if(i > 98 && i < 1450 && i%50 === 49) {
-				let alive = 0;
-				let dead = 0;
 				let neighbors = [a1, a2, b1, c1, c2];
-				let thisCell = [];
-				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
-				if(currentGen[i][1] === 0 && alive === 3 ){thisCell = [i+1, 1]}
-					else if(currentGen[i][1] === 0 && alive !== 3 ){thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive > 3) {thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive >1 && alive < 4) {thisCell = [i+1, 1]} 
-				else if(currentGen[i][1] === 1 && alive < 2) {thisCell = [i+1, 0]};
+				var alive = findNeighbors(neighbors);
+				var thisCell = [];
+				checking();
 				nextGen.push(thisCell);
 				 
 			}
 
 			//For First cell of last row
 			if(i === 1450) {
-				let alive = 0;
-				let dead = 0;
 				let neighbors = [a2, a3, b3];
-				let thisCell = [];
-				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
-				if(currentGen[i][1] === 0 && alive === 3 ){thisCell = [i+1, 1]}
-					else if(currentGen[i][1] === 0 && alive !== 3 ){thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive > 3) {thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive >1 && alive < 4) {thisCell = [i+1, 1]} 
-				else if(currentGen[i][1] === 1 && alive < 2) {thisCell = [i+1, 0]};
+				var alive = findNeighbors(neighbors);
+				var thisCell = [];
+				checking();
 				nextGen.push(thisCell);
 				 
 			}
 
 			//For very last cell
 			if(i === 1499) {
-				let alive = 0;
-				let dead = 0;
 				let neighbors = [a1, a2, b1];
-				let thisCell = [];
-				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
-				if(currentGen[i][1] === 0 && alive === 3 ){thisCell = [i+1, 1]}
-					else if(currentGen[i][1] === 0 && alive !== 3 ){thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive > 3) {thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive >1 && alive < 4) {thisCell = [i+1, 1]} 
-				else if(currentGen[i][1] === 1 && alive < 2) {thisCell = [i+1, 0]};
+				var alive = findNeighbors(neighbors);
+				var thisCell = [];
+				checking();
 				nextGen.push(thisCell);
 				 
 			}
 
 			//For Cells 1451-1499
 			if(i > 1450 && i < 1499) {
-
-				let alive = 0;
-				let dead = 0;
 				let neighbors = [a1, a2, a3, b1, b3];
-				let thisCell = [];
-				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
-				if(currentGen[i][1] === 0 && alive === 3 ){thisCell = [i+1, 1]}
-				else if(currentGen[i][1] === 0 && alive !== 3 ){thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive > 3) {thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive >1 && alive < 4) {thisCell = [i+1, 1]} 
-				else if(currentGen[i][1] === 1 && alive < 2) {thisCell = [i+1, 0]};
+				var alive = findNeighbors(neighbors);
+				var thisCell = [];
+				checking();
 				nextGen.push(thisCell);
 				 
 			}
 
 			//For All Inner Cells
 			if(i>50 && i<1449 && i%50 !== 0 && i%50 !== 49) {
-				let alive = 0;
-				let dead = 0;
 				let neighbors = [a1, a2, a3, b1, b3, c1, c2, c3];
-				let thisCell = [];
-				neighbors.map((neighbor)=> { neighbor[1] === 1 ? alive += 1 : dead += 1 });
-				if(currentGen[i][1] === 0 && alive === 3 ){thisCell = [i+1, 1]}
-				else if(currentGen[i][1] === 0 && alive !== 3 ){thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive > 3) {thisCell = [i+1, 0]}
-				else if(currentGen[i][1] === 1 && alive >1 && alive < 4) {thisCell = [i+1, 1]} 
-				else if(currentGen[i][1] === 1 && alive < 2) {thisCell = [i+1, 0]};
+				var alive = findNeighbors(neighbors);
+				var thisCell = [];
+				checking();
 				nextGen.push(thisCell); 
 			}
 	
