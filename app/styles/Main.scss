@@ -3,44 +3,61 @@
 
 
 $light: #BBE0E0;
-$bright: #8BE0E0;
+$background: #E0E1E4;
 $mid: #1C5050;
 $blue: #100876;
 $darkest: #022121;
 
 body{
-	background-color: #ddd;
 	text-align: center;
 	font-family: 'Acme', sans-serif;
+	background-color: $background;
 }
 
 
 .headerContainer {
 	padding: 20px;
-	background-color: $bright;
+	background-image: url('./images/banner.jpeg');
+	background-size: stretch;
+	padding: 0;
 	margin-bottom: 10px;
+	height: 150px;
 	color: $darkest;
-	.header {
-		margin-top: 0;
-		margin-bottom: 3px;
-		a {
-			color: $mid;
+	.coverContainer{
+		width: 100%;
+		height: 100%;
+		background-color: rgba(140,140,140,0.7);
+		padding: 20px;
+		.header {
+			font-size: 2em;
+			margin: 0;
+			color: white;
+			a {
+				color: #f1f1f1;
+				text-decoration: none;
+			}
+			a:hover {
+				color: $light;
+			}
 		}
-		a:hover {
-			color: $blue;
-		}
-	}
-	p {
-		margin-top: 3px;
-		font-size: 12px;
-		a {
-			color: $mid;
-		}
-		a:hover {
-			color: $blue;
+		p {
+			font-size: 1.2em;
+			color: white;
+			a {
+				color: #f1f1f1;
+				text-decoration: none;
+			}
+			a:hover {
+				color: $light;
+			}
 		}
 	}
 
+}
+
+.counter{
+	font-size: 1.5em;
+	color: #444;
 }
 
 table {
@@ -64,17 +81,83 @@ table {
 
 
 .block{
-	width: 10px;
-	height: 10px;
-	border: 1px solid $darkest;
+	width: 14px;
+	height: 14px;
+	border: 1px solid #DaD6D1;
 }
 
 .dead {
-	background-color: $mid;
+	background: none;
 }
 
 .alive {
-	background-color: $light;
+	background-image: url(./images/alive.png);
+	background-size: fill;
+	background-repeat: no-repeat;
+}
+
+.btnContainer{
+	width: 600px;
+	margin: 20px auto;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+	.btn{
+		width: 48%;
+		margin-top: 5px;
+		padding: 8px;
+		border: 1px solid black;
+		border-radius: 8px;
+		background-color: #444;
+		color: white;
+	}
+}
+
+@media screen and (max-width: 722px) and (min-width: 551px){
+	.btnContainer{
+		width: 500px;
+		.btn{
+			width: 48%;
+		}
+	}
+	.block {
+		width: 10px;
+		height: 10px;
+	}
+}
+
+@media screen and (max-width: 550px) and (min-width: 401px){
+	.btnContainer{
+		width: 300px;
+		.btn{
+			width: 90%;
+		}
+	}
+	.block {
+		width: 7px;
+		height: 7px;
+	}
+}
+
+@media screen and (max-width: 400px){
+	.btnContainer{
+		width: 300px;
+		.btn{
+			width: 80%;
+		}
+	}
+	.block {
+		width: 5px;
+		height: 5px;
+		border: none;
+	}
+}
+
+@media screen and (max-width: 722px){
+	.alive{
+		background-size: cover;
+	}
 }
 
 

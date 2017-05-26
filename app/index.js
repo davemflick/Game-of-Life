@@ -27,7 +27,7 @@ class App extends React.Component{
 
 	onStartRun () {
 		if(!this.state.running){
-		this.interval = setInterval(this.onNextGen.bind(this), 200)
+		this.interval = setInterval(this.onNextGen.bind(this), 250)
 		this.state.running = true;
 		} else {
 			this.onClearTime();
@@ -298,10 +298,12 @@ class App extends React.Component{
 				<table  onClick={this.handleClick.bind(this)}>
 					<GridTable createRows={this.createRows()} />
 				</table>
-				<button onClick={this.onPopulateRandom.bind(this)}> Random Population </button>
-				<button onClick={this.onNextGen.bind(this)}> Next Generation </button>
-				<button onClick={this.onStartRun.bind(this)}> Start/Stop </button>
-				<button onClick={this.onClearBoard.bind(this)}> Clear All </button>
+				<div className="btnContainer">
+					<button className="btn" onClick={this.onPopulateRandom.bind(this)}> Random Population </button>
+					<button className="btn" onClick={this.onNextGen.bind(this)}> Next Generation </button>
+					<button className="btn" onClick={this.onStartRun.bind(this)}> Start/Stop </button>
+					<button className="btn" onClick={this.onClearBoard.bind(this)}> Clear All </button>
+				</div>
 			</div>
 		)
 	}//End of render
